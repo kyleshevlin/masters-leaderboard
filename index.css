@@ -1,0 +1,30 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background: green;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  background: white;
+  margin-left: 2em;
+}
+
+td,
+th {
+  padding: 0.5em;
+  text-align: center;
+}
+
+.align_left {
+  text-align: left;
+}
