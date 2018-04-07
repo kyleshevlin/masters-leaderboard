@@ -2,6 +2,31 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
+const flags = {
+  ARG: '🇦🇷',
+  AUS: '🇦🇺',
+  AUT: '🇦🇹',
+  BEL: '🇧🇪',
+  CAN: '🇨🇦',
+  CHN: '🇨🇳',
+  ENG: '🇬🇧',
+  ESP: '🇪🇸',
+  FIJ: '🇫🇯',
+  GER: '🇩🇪',
+  IND: '🇮🇳',
+  ITA: '🇮🇹',
+  JPN: '🇯🇵',
+  KOR: '🇰🇷',
+  NIR: '🇬🇧',
+  RSA: '🇿🇦',
+  SCO: '🇬🇧',
+  SWE: '🇸🇪',
+  THA: '🇹🇭',
+  USA: '🇺🇸',
+  VEN: '🇻🇪',
+  WAL: '🇬🇧'
+}
+
 class DataContainer extends Component {
   constructor() {
     super()
@@ -36,28 +61,36 @@ class DataContainer extends Component {
   }
 }
 
+const formatPar = n => (n > 0 ? `+${n}` : n === 0 ? 'E' : n)
+
 const Player = ({
   current_position,
-  player_bio: { first_name, last_name, is_amateur },
+  player_bio: {
+    country,
+    first_name,
+    last_name,
+    is_amateur
+  },
   rounds,
+  status,
   thru,
   today,
   total,
   total_strokes
 }) => (
-  <tr>
-    <td className="align_left">{current_position}</td>
+  <tr className={status === 'cut' ? 'is-cut' : ''}>
+    <td>{current_position}</td>
     <td className="align_left">
       {first_name} {last_name}
-      {is_amateur && ' (A)'}
+      {is_amateur && ' (A)'} {flags[country]}
     </td>
-    <td>{today > 0 ? `+${today}` : today}</td>
+    <td>{formatPar(today)}</td>
     <td>{thru === 18 ? 'F' : thru}</td>
     {rounds.map(({ round_number, strokes }) => (
       <td key={round_number}>{strokes || '-'}</td>
     ))}
     <td>{total_strokes}</td>
-    <td>{total}</td>
+    <td>{formatPar(total)}</td>
   </tr>
 )
 

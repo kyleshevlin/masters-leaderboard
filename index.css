@@ -9,19 +9,29 @@ html {
 }
 
 body {
-  background: green;
+  background-color: green;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
 }
 
 table {
-  background: white;
+  background-color: white;
   margin-left: 2em;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+/* Double specificity to overcome tbody tr:nth-child(odd) selector */
+.is-cut.is-cut {
+  background-color: rgba(255, 0, 0, 0.2);
 }
 
 td,
 th {
-  padding: 0.5em;
+  padding: 1em 0.75em;
   text-align: center;
 }
 
