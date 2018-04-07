@@ -63,6 +63,32 @@ class DataContainer extends Component {
 
 const formatPar = n => (n > 0 ? `+${n}` : n === 0 ? 'E' : n)
 
+const formatTime = date => {
+  let hours = date.getHours()
+  const timeOfDay = hours >= 12 ? 'PM' : 'AM'
+
+  if (hours > 12) {
+    hours = hours - 12
+  }
+
+  const minutes = date
+    .getMinutes()
+    .toString()
+    .padEnd(2, '0')
+
+  return `${hours}:${minutes} ${timeOfDay}`
+}
+
+const teeTime = rounds => {
+  const found = rounds.find(
+    round => round.tee_time && !round.strokes
+  )
+
+  return found
+    ? formatTime(new Date(found.tee_time))
+    : '--:--'
+}
+
 const Player = ({
   current_position,
   player_bio: {
@@ -91,6 +117,7 @@ const Player = ({
     ))}
     <td>{total_strokes}</td>
     <td>{formatPar(total)}</td>
+    <td>{teeTime(rounds)}</td>
   </tr>
 )
 
@@ -108,6 +135,7 @@ const Leaderboard = ({ leaderboard: { players } }) => (
         <th>Rd 4</th>
         <th>Total</th>
         <th>Par</th>
+        <th>Tee Time</th>
       </tr>
     </thead>
     <tbody>
